@@ -8,17 +8,18 @@ pip install Hough-TMF
 
 ## Usage
 ```python
-from hd_tmf import tmf
+
 ```
 
 ## TMF Example
 ```python
+import numpy as np
 # generate a random template
 tmp = np.random.rand(10, 100, 20)
 # generate a random image
 data = np.random.rand(100, 1000)
 # calculate the cross-correlation between the template and the image
-corr = tmf(tmp, data, step=1, device='cpu', moves=[], batch_size=-1, save_memory=False, max_workers=4)
+corr = tmf.tma(data,tmp, step=1,device='cpu',moves = [],is_sum=False,batch_size=-1,half=False,save_memory=False)
 ```
 
 ## Parameters
@@ -29,14 +30,13 @@ corr = tmf(tmp, data, step=1, device='cpu', moves=[], batch_size=-1, save_memory
 - `moves` (list, optional): A list of moves to apply to the template before matching. Defaults to [].
 - `batch_size` (int, optional): The batch size to use for the computation. Defaults to -1.
 - `save_memory` (bool, optional): Whether to use half-precision floating point numbers to save memory. Defaults to False.
-- `max_workers` (int, optional): The maximum number of worker threads to use for the computation. Defaults to 4.
 
 ## Returns
 - `numpy.ndarray`: The cross-correlation between the template and the image.
 
 ## Hough Example
 ```python
-from hd_tmf import hough
+from hd_tma import hough
 data = np.random.randn(256, 256)
 hough(data,freq=100,bandpass=[2,8],sl=[10,20],resample=1, sigma=1.3, low_threshold=3, high_threshold=6,theta=np.linspace(np.pi/2/90*10/100,np.pi/2/90*10,99), fil='bandpass', S_L=True,beta=0,kernel=(3,3))
 ```

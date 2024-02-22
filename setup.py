@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="Hough-TMF",
-    version="0.2.2",
+    version="0.2.5",
     author="Hao Lv",
     author_email="lh21@apm.ac.cn",
     description="A package for template matching using Torch",
