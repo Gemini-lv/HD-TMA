@@ -1,0 +1,100 @@
+Metadata-Version: 2.1
+Name: Hough-TMF
+Version: 0.2.2
+Summary: A package for template matching using Torch
+Home-page: 
+Author: Hao Lv
+Author-email: lh21@apm.ac.cn
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
+# hd-tmf
+A high-dimensional template matching framework based on PyTorch.
+
+## Installation
+```bash
+pip install Hough-TMF
+```
+
+## Usage
+```python
+from hd_tmf import tmf
+```
+
+## TMF Example
+```python
+# generate a random template
+tmp = np.random.rand(10, 100, 20)
+# generate a random image
+data = np.random.rand(100, 1000)
+# calculate the cross-correlation between the template and the image
+corr = tmf(tmp, data, step=1, device='cpu', moves=[], batch_size=-1, save_memory=False, max_workers=4)
+```
+
+## Parameters
+- `tmp` (numpy.ndarray or torch.Tensor): The template to be matched.
+- `data` (numpy.ndarray or torch.Tensor): The image to search for the template.
+- `step` (int, optional): The step size of the convolution. Defaults to 1.
+- `device` (str, optional): The device to perform the computation on. Defaults to 'cpu'.
+- `moves` (list, optional): A list of moves to apply to the template before matching. Defaults to [].
+- `batch_size` (int, optional): The batch size to use for the computation. Defaults to -1.
+- `save_memory` (bool, optional): Whether to use half-precision floating point numbers to save memory. Defaults to False.
+- `max_workers` (int, optional): The maximum number of worker threads to use for the computation. Defaults to 4.
+
+## Returns
+- `numpy.ndarray`: The cross-correlation between the template and the image.
+
+## Hough Example
+```python
+from hd_tmf import hough
+data = np.random.randn(256, 256)
+hough(data,freq=100,bandpass=[2,8],sl=[10,20],resample=1, sigma=1.3, low_threshold=3, high_threshold=6,theta=np.linspace(np.pi/2/90*10/100,np.pi/2/90*10,99), fil='bandpass', S_L=True,beta=0,kernel=(3,3))
+```
+
+## Parameters
+- `data` (numpy.ndarray or torch.Tensor): The image to search for the template.
+- `freq` (int, optional): The frequency of the template. Defaults to 100.
+- `bandpass` (list, optional): The bandpass filter to apply to the image. Defaults to [2,8].
+- `sl` (list, optional): The size of the template. Defaults to [10,20].
+- `resample` (int, optional): The resample rate of the image. Defaults to 1.
+- `sigma` (float, optional): The sigma of the Gaussian filter. Defaults to 1.3.
+- `low_threshold` (float, optional): The low threshold of the Canny edge detector. Defaults to 3.
+- `high_threshold` (float, optional): The high threshold of the Canny edge detector. Defaults to 6.
+- `theta` (numpy.ndarray, optional): The theta of the Hough transform. Defaults to np.linspace(np.pi/2/90*10/100,np.pi/2/90*10,99).
+- `fil` (str, optional): The filter to apply to the image. Defaults to 'bandpass'.
+- `S_L` (bool, optional): Whether to apply the Laplacian filter to the image. Defaults to True.
+- `beta` (float, optional): The beta of the Laplacian filter. Defaults to 0.
+- `kernel` (tuple, optional): The kernel size of the Laplacian filter. Defaults to (3,3).
+
+
+## License
+
+MIT License
+
+Copyright (c) [2023] []
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## References
+
